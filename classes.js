@@ -31,7 +31,19 @@
 
 //Code Here
 
+class Employee {
+  constructor(first_name, last_name, email, age){
+    this.first_name= first_name,
+    this.last_name=last_name,
+    this.email=email,
+    this.age=age,
+    this.makeWidget= function() {
+      return this.first_name + " " +this.last_name+ " " +"Widget"
+    }
 
+  }
+
+}
 ////////// PROBLEM 2 //////////
 
 /*
@@ -49,6 +61,21 @@
 
 //Code Here
 
+class Manager extends Employee {
+  constructor(first_name, last_name, email, age){
+    super(first_name, last_name, email, age);
+  this.reports=[],
+  this.hire=function(newEmployee){
+    this.reports.push(newEmployee)
+    return this.reports
+  },
+  this.fire=function(index){
+    this.reports.splice(index, 1);
+    return this.reports;
+  }
+
+}
+}
 
 ////////// PROBLEM 3 //////////
 
@@ -73,6 +100,56 @@
 
 //Code Here
 
+class ProgressiveManager extends Manager {
+  constructor(first_name, last_name, email, age){
+    super(first_name, last_name, email, age);
+    this.title="Not a manager";
+    this.bonus=0;
+    this.hire= function(newEmployee){
+
+      this.reports.push(newEmployee)
+      let rl=this.reports.length;
+      if(rl===0){
+        this.title="Not a manager"
+      } else if (rl>=1 && rl<=3){
+        this.title="Barely Manager"
+      }else if (rl>3 &&rl<=10){
+        this.title="Mostly Manager"
+      }else if (rl>10 &&rl<=50){
+        this.title="Manager";
+      }else if (rl>50&&rl<=100){
+        this.title="Manager Plus"
+      }else if(rl>100) {
+        this.title="Bestest Manager";
+      }
+  };
+  this.fire=function (index) {
+    this.reports.splice(index, 1);
+    let rl=this.reports.length;
+      if(rl===0){
+        this.title="Not a manager"
+      } else if (rl>=1 && rl<=3){
+        this.title="Barely Manager"
+      }else if (rl>3 &&rl<=10){
+        this.title="Mostly Manager"
+      }else if (rl>10 &&rl<=50){
+        this.title="Manager";
+      }else if (rl>50&&rl<=100){
+        this.title="Manager Plus"
+      }else if(rl>100) {
+        this.title="Bestest Manager";
+      }
+      this.bonus+=100;
+  }
+      //check if hired or fire 
+      //check reports array
+      //update title based off of number of reports
+      //if employee is fired add 100 to bonus 
+      
+
+
+    }
+  }
 
 
 ////////// PROBLEM 4 - Black Diamond //////////
@@ -100,4 +177,25 @@
 
 //Code Here
 
-
+class Machine {
+  constructor(){
+  this.widgets_made_count=0;
+  this.wear_and_tear_count=0;
+  this.needs_reboot=false;
+  this.makeWidgets=function(num){
+    this.widgets_made_count+= num;
+    this.wear_and_tear_count+= num/50;
+  };
+  this.fixMachine=function(){
+     this.needs_reboot=true;
+  };
+  this.reboot=function(){
+    
+    return function(){
+    
+    this.wear_and_tear_count-=10
+    this.needs_reboot=false
+  }.bind(this)  
+  };
+}
+}
